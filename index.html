@@ -8,6 +8,8 @@
   function reloadPlayer() {
     console.log("Scheduling player reload");
     document.getElementById('error').style.color = 'red';
+    clearPlayer();
+    
     window.playerReloadTimeoutId = setTimeout(function() {
       console.log("Reloading player");
       delete window.playerReloadTimeoutId;
@@ -25,6 +27,15 @@
     window.player.src = 'http://227fm.radiokitstream.org/227fm.mp3';
     window.player.play();
   }
+    
+    
+  function clearPlayer() {      
+    window.player.onerror = undefined;
+    window.player.onended = undefined;
+    window.player.pause();
+    window.player.src = '';
+    delete window.player;
+  }
 
 
   function stopPlayer() {
@@ -36,11 +47,7 @@
     }
     document.getElementById('error').style.color = 'white';
 
-    window.player.onerror = undefined;
-    window.player.onended = undefined;
-    window.player.pause();
-    window.player.src = '';
-    delete window.player;
+    clearPlayer();
   }
 
 
